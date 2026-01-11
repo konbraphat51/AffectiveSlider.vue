@@ -112,15 +112,61 @@ export default {
 
 ## Setup for Images
 
-Make sure to copy the image files from the `PNGs` directory to your `public/images/` directory. The component expects the following images:
+### Option 1: Using Images from npm Package (Recommended)
 
+When you install the package via npm, the required images are automatically included in `node_modules/affectiveslidervue/dist/images/`. 
+
+To make them accessible to your application, you have two options:
+
+**A. Copy images to your public directory (recommended for most cases)**
+
+Add a postinstall script or copy the images manually:
+
+```bash
+# Manual copy
+cp -r node_modules/affectiveslidervue/dist/images/* public/images/
+```
+
+Or add to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "postinstall": "cp -r node_modules/affectiveslidervue/dist/images public/"
+  }
+}
+```
+
+**B. Use a custom imagePath**
+
+If you're using a bundler like Vite or Webpack, you can configure it to serve images from node_modules:
+
+```vue
+<AffectiveSlider
+  image-path="/node_modules/affectiveslidervue/dist/images/"
+/>
+```
+
+### Option 2: Manual Download
+
+Download the image files from the [PNGs directory](https://github.com/konbraphat51/AffectiveSliderVue/tree/main/PNGs) and place them in your `public/images/` directory.
+
+Required images:
 - `AS_happy.png`
 - `AS_unhappy.png`
 - `AS_sleepy.png`
 - `AS_wideawake.png`
 - `AS_intensity_cue.png`
 
-If your images are in a different location, use the `imagePath` prop to specify the correct path.
+### Custom Image Location
+
+If your images are in a different location, use the `imagePath` prop:
+
+```vue
+<AffectiveSlider
+  image-path="/assets/affective-slider/"
+/>
+```
 
 ## Development
 
@@ -134,6 +180,10 @@ npm run dev
 # Build for production
 npm run build
 ```
+
+## Publishing
+
+For maintainers: See [PUBLISHING.md](./PUBLISHING.md) for instructions on publishing this package to npm.
 
 ## Design Guidelines
 

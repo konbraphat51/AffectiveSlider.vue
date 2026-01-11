@@ -8,9 +8,25 @@
 npm install affectiveslidervue
 ```
 
-### 2. Copy images to your public directory
+### 2. Setup images
 
-Copy all PNG files from the `PNGs` directory to your project's `public/images/` directory:
+The images are included in the npm package. Copy them to your public directory:
+
+```bash
+cp -r node_modules/affectiveslidervue/dist/images public/
+```
+
+Or add a postinstall script to `package.json`:
+
+```json
+{
+  "scripts": {
+    "postinstall": "cp -r node_modules/affectiveslidervue/dist/images public/"
+  }
+}
+```
+
+Your project structure:
 
 ```
 public/
