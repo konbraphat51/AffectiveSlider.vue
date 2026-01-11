@@ -120,21 +120,32 @@ To make them accessible to your application, you have two options:
 
 **A. Copy images to your public directory (recommended for most cases)**
 
-Add a postinstall script or copy the images manually:
+Install a cross-platform copy utility and add a postinstall script to your `package.json`:
 
 ```bash
-# Manual copy
-cp -r node_modules/affectiveslidervue/dist/images/* public/images/
+# Install cross-platform copy utility
+npm install --save-dev cpx2
 ```
-
-Or add to your `package.json`:
 
 ```json
 {
   "scripts": {
-    "postinstall": "cp -r node_modules/affectiveslidervue/dist/images public/"
+    "postinstall": "cpx \"node_modules/affectiveslidervue/dist/images/*\" public/images"
   }
 }
+```
+
+**Or copy manually:**
+
+```bash
+# Unix/Mac/Linux
+cp -r node_modules/affectiveslidervue/dist/images/* public/images/
+
+# Windows (PowerShell)
+Copy-Item -Path "node_modules/affectiveslidervue/dist/images/*" -Destination "public/images/" -Recurse
+
+# Windows (Command Prompt)
+xcopy /E /I node_modules\affectiveslidervue\dist\images public\images
 ```
 
 **B. Use a custom imagePath**

@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import { copyFileSync, mkdirSync } from 'fs'
+import { copyFileSync, mkdirSync, readdirSync } from 'fs'
 import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import { dirname, join } from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -14,24 +14,30 @@ export default defineConfig({
     {
       name: 'copy-images',
       closeBundle() {
-        // Copy images to dist folder after build
-        const imagesDir = resolve(__dirname, 'dist/images')
-        mkdirSync(imagesDir, { recursive: true })
-        
-        const images = [
-          'AS_happy.png',
-          'AS_unhappy.png',
-          'AS_sleepy.png',
-          'AS_wideawake.png',
-          'AS_intensity_cue.png'
-        ]
-        
-        images.forEach(image => {
-          copyFileSync(
-            resolve(__dirname, 'public/images', image),
-            resolve(__dirname, 'dist/images', image)
-          )
-        })
+        try {
+          // Copy images to dist folder after build
+          const imagesDir = resolve(__dirname, 'dist/images')
+          const sourceDir = resolve(__dirname, 'public/images')
+          
+          mkdirSync(imagesDir, { recursive: true })
+          
+          // Read all PNG files from source directory
+          const images = readdirSync(sourceDir).filter(file => file.endsWith('.png'))
+          
+          images.forEach(image => {
+            const source = join(sourceDir, image)
+            const dest = join(imagesDir, image)
+            try {
+              copyFileSync(source, dest)
+            } catch (err) {
+              console.warn(`Warning: Could not copy ${image}:`, err.message)
+            }
+          })
+          
+          console.log(`Copied ${images.length} images to dist/images/`)
+        } catch (err) {
+          console.error('Error copying images:', err.message)
+        }
       }
     }
   ],
