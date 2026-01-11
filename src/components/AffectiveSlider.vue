@@ -111,10 +111,12 @@ export default {
     },
     initializeSliderOrder() {
       const sliders = ['arousal', 'pleasure']
-      if (this.randomizeOrder && Math.random() > 0.5) {
-        this.sliderOrder = [...sliders]
+      if (this.randomizeOrder) {
+        // Randomly choose order: 50% chance for each arrangement
+        this.sliderOrder = Math.random() > 0.5 ? [...sliders] : [...sliders].reverse()
       } else {
-        this.sliderOrder = [...sliders].reverse()
+        // Fixed order: pleasure first, arousal second
+        this.sliderOrder = ['pleasure', 'arousal']
       }
     }
   },
