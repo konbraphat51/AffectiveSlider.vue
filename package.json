@@ -1,0 +1,48 @@
+{
+  "name": "affectiveslidervue",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/affective-slider-vue.umd.js",
+  "module": "./dist/affective-slider-vue.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/affective-slider-vue.es.js",
+      "require": "./dist/affective-slider-vue.umd.js"
+    },
+    "./dist/images/*": "./dist/images/*"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:demo": "vite build --config vite.config.demo.js",
+    "preview": "vite preview",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": ["vue", "affective-slider", "emotion", "slider", "component"],
+  "author": "",
+  "license": "CC-BY-SA-4.0",
+  "description": "A Vue component implementation of the Affective Slider for measuring pleasure and arousal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/konbraphat51/AffectiveSliderVue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/konbraphat51/AffectiveSliderVue/issues"
+  },
+  "homepage": "https://github.com/konbraphat51/AffectiveSliderVue#readme",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.3",
+    "vite": "^7.3.1",
+    "vue": "^3.5.26"
+  }
+}
