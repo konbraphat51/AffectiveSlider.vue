@@ -94,6 +94,29 @@ export default {
 </script>
 ```
 
+### With Labels
+
+```vue
+<template>
+  <AffectiveSlider
+    pleasure-left-label="Sad"
+    pleasure-right-label="Happy"
+    arousal-left-label="Sleepy"
+    arousal-right-label="Awake"
+  />
+</template>
+
+<script>
+import AffectiveSlider from 'affectiveslidervue'
+
+export default {
+  components: {
+    AffectiveSlider
+  }
+}
+</script>
+```
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -102,6 +125,10 @@ export default {
 | `arousalValue` | Number | 0.5 | Initial value for arousal slider (0-1) |
 | `randomizeOrder` | Boolean | true | Randomize the order of sliders to prevent bias |
 | `imagePath` | String | '/images/' | Base path for slider images |
+| `pleasureLeftLabel` | String | '' | Text label below left icon (sad face) of pleasure slider |
+| `pleasureRightLabel` | String | '' | Text label below right icon (happy face) of pleasure slider |
+| `arousalLeftLabel` | String | '' | Text label below left icon (sleepy face) of arousal slider |
+| `arousalRightLabel` | String | '' | Text label below right icon (awake face) of arousal slider |
 
 ## Events
 

@@ -116,6 +116,10 @@ Then open http://localhost:5173 in your browser.
 | `arousalValue` | 0.5 | Initial arousal value (0-1) |
 | `randomizeOrder` | true | Randomize slider order |
 | `imagePath` | '/images/' | Base path for images |
+| `pleasureLeftLabel` | '' | Label below sad face icon |
+| `pleasureRightLabel` | '' | Label below happy face icon |
+| `arousalLeftLabel` | '' | Label below sleepy face icon |
+| `arousalRightLabel` | '' | Label below awake face icon |
 
 ## Component Events
 

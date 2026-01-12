@@ -5,11 +5,14 @@
       :key="slider.type"
       :class="['as-container', slider.type]"
     >
-      <img 
-        :src="slider.leftImage" 
-        :alt="`${slider.type} left`" 
-        class="as-icon as-icon-left"
-      />
+      <div class="as-icon-wrapper as-icon-left">
+        <img 
+          :src="slider.leftImage" 
+          :alt="`${slider.type} left`" 
+          class="as-icon"
+        />
+        <div v-if="slider.leftLabel" class="as-icon-label">{{ slider.leftLabel }}</div>
+      </div>
       <input 
         type="range" 
         :name="`AS-${slider.type}`"
@@ -23,11 +26,14 @@
         @touchstart="handleInteraction(slider.type)"
         class="as-slider"
       />
-      <img 
-        :src="slider.rightImage" 
-        :alt="`${slider.type} right`" 
-        class="as-icon as-icon-right"
-      />
+      <div class="as-icon-wrapper as-icon-right">
+        <img 
+          :src="slider.rightImage" 
+          :alt="`${slider.type} right`" 
+          class="as-icon"
+        />
+        <div v-if="slider.rightLabel" class="as-icon-label">{{ slider.rightLabel }}</div>
+      </div>
       <div class="as-intensity-cue">
         <img :src="intensityCueImage" alt="intensity cue" />
       </div>
@@ -60,6 +66,26 @@ export default {
     imagePath: {
       type: String,
       default: '/images/'
+    },
+    // Label below left icon for pleasure slider (unhappy face)
+    pleasureLeftLabel: {
+      type: String,
+      default: ''
+    },
+    // Label below right icon for pleasure slider (happy face)
+    pleasureRightLabel: {
+      type: String,
+      default: ''
+    },
+    // Label below left icon for arousal slider (sleepy face)
+    arousalLeftLabel: {
+      type: String,
+      default: ''
+    },
+    // Label below right icon for arousal slider (wide awake face)
+    arousalRightLabel: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -79,7 +105,9 @@ export default {
         type,
         value: this[type],
         leftImage: this.getLeftImage(type),
-        rightImage: this.getRightImage(type)
+        rightImage: this.getRightImage(type),
+        leftLabel: this.getLeftLabel(type),
+        rightLabel: this.getRightLabel(type)
       }))
     },
     intensityCueImage() {
@@ -108,6 +136,12 @@ export default {
       return type === 'pleasure'
         ? `${this.imagePath}AS_happy.png`
         : `${this.imagePath}AS_wideawake.png`
+    },
+    getLeftLabel(type) {
+      return type === 'pleasure' ? this.pleasureLeftLabel : this.arousalLeftLabel
+    },
+    getRightLabel(type) {
+      return type === 'pleasure' ? this.pleasureRightLabel : this.arousalRightLabel
     },
     initializeSliderOrder() {
       const sliders = ['arousal', 'pleasure']
@@ -157,10 +191,13 @@ export default {
   object-fit: contain;
 }
 
-.as-icon-left,
-.as-icon-right {
+.as-icon-wrapper {
   position: absolute;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .as-icon-left {
@@ -169,6 +206,16 @@ export default {
 
 .as-icon-right {
   right: 0;
+}
+
+.as-icon-label {
+  font-size: 12px;
+  color: #333;
+  text-align: center;
+  white-space: nowrap;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .as-slider {
@@ -317,6 +364,11 @@ export default {
   .as-intensity-cue {
     width: calc(100% - 100px);
     margin: 10px 50px 0;
+  }
+  
+  .as-icon-label {
+    font-size: 10px;
+    max-width: 60px;
   }
 }
 </style>

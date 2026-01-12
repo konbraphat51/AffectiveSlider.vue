@@ -10,6 +10,10 @@
     <AffectiveSlider
       :pleasure-value="pleasure"
       :arousal-value="arousal"
+      pleasure-left-label="Sad"
+      pleasure-right-label="Happy"
+      arousal-left-label="Sleepy"
+      arousal-right-label="Awake"
       @update:pleasureValue="pleasure = $event"
       @update:arousalValue="arousal = $event"
       @change="handleChange"
