@@ -2,6 +2,8 @@
 
 A Vue 3 component implementation of the Affective Slider (AS) for measuring pleasure and arousal in emotion assessment.
 
+**[Live Demo](https://konbraphat51.github.io/AffectiveSliderVue/)** | [npm Package](https://www.npmjs.com/package/affectiveslidervue)
+
 ## About
 
 The Affective Slider (AS) is a digital scale for the self-assessment of emotion composed of two slider controls that measure:
@@ -188,8 +190,22 @@ npm install
 # Run development server
 npm run dev
 
-# Build for production
+# Build component for production (library)
 npm run build
+
+# Build demo for GitHub Pages
+npm run build:demo
+```
+
+### GitHub Pages Demo
+
+The `/docs` folder contains a built version of the demo application for GitHub Pages deployment.
+
+**Live Demo**: https://konbraphat51.github.io/AffectiveSliderVue/
+
+To rebuild the demo:
+```bash
+npm run build:demo
 ```
 
 ## Publishing
