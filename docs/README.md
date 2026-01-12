@@ -9,7 +9,7 @@ This folder contains the built demo application for GitHub Pages.
 To rebuild this demo:
 
 ```bash
-npm run build:demo
+pnpm build:demo
 ```
 
 This will build the demo application from the source files and output to this `/docs` folder.

@@ -22,7 +22,7 @@
     "build": "vite build",
     "build:demo": "vite build --config vite.config.demo.js",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build"
   },
   "keywords": ["vue", "affective-slider", "emotion", "slider", "component"],
   "author": "",

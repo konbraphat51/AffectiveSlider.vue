@@ -5,7 +5,7 @@ Get started with the Affective Slider Vue component in minutes!
 ## Installation
 
 ```bash
-npm install affectiveslidervue
+pnpm add affectiveslidervue
 ```
 
 ## Setup Images
@@ -16,7 +16,7 @@ The images are automatically included when you install the package via npm. Copy
 
 ```bash
 # Install cross-platform copy utility
-npm install --save-dev cpx2
+pnpm add -D cpx2
 ```
 
 Add to your `package.json`:
@@ -94,10 +94,10 @@ git clone https://github.com/konbraphat51/AffectiveSliderVue.git
 cd AffectiveSliderVue
 
 # Install dependencies
-npm install
+pnpm install
 
 # Run the demo
-npm run dev
+pnpm dev
 ```
 
 Then open http://localhost:5173 in your browser.

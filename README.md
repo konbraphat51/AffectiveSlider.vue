@@ -30,7 +30,7 @@ The AS has been empirically validated and presented in the following open access
 ## Installation
 
 ```bash
-npm install affectiveslidervue
+pnpm add affectiveslidervue
 ```
 
 ## Usage
@@ -185,16 +185,16 @@ If your images are in a different location, use the `imagePath` prop:
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Run development server
-npm run dev
+pnpm dev
 
 # Build component for production (library)
-npm run build
+pnpm build
 
 # Build demo for GitHub Pages
-npm run build:demo
+pnpm build:demo
 ```
 
 ### GitHub Pages Demo
@@ -205,7 +205,7 @@ The `/docs` folder contains a built version of the demo application for GitHub P
 
 To rebuild the demo:
 ```bash
-npm run build:demo
+pnpm build:demo
 ```
 
 ## Publishing

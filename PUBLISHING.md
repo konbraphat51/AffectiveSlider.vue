@@ -8,13 +8,13 @@ This guide explains how to publish the AffectiveSliderVue package to npm.
 
 2. **npm login**: Log in to npm from your command line:
    ```bash
-   npm login
+   pnpm login
    ```
    You'll be prompted to enter your username, password, and email.
 
 3. **Verify login**:
    ```bash
-   npm whoami
+   pnpm whoami
    ```
 
 ## Pre-publishing Checklist
@@ -25,7 +25,7 @@ Before publishing, ensure:
 - [ ] Version number is updated in `package.json`
 - [ ] `CHANGELOG.md` is updated with the new version changes
 - [ ] All tests pass (if applicable)
-- [ ] Build is successful: `npm run build`
+- [ ] Build is successful: `pnpm build`
 - [ ] Images are included in the dist folder
 
 ## Version Management
@@ -34,17 +34,17 @@ Follow [Semantic Versioning](https://semver.org/):
 
 - **Patch release** (1.0.0 → 1.0.1): Bug fixes, minor changes
   ```bash
-  npm version patch
+  pnpm version patch
   ```
 
 - **Minor release** (1.0.0 → 1.1.0): New features, backward compatible
   ```bash
-  npm version minor
+  pnpm version minor
   ```
 
 - **Major release** (1.0.0 → 2.0.0): Breaking changes
   ```bash
-  npm version major
+  pnpm version major
   ```
 
 These commands will automatically:
@@ -58,21 +58,21 @@ These commands will automatically:
 
 ```bash
 # For a patch release (bug fixes)
-npm version patch
+pnpm version patch
 
 # For a minor release (new features)
-npm version minor
+pnpm version minor
 
 # For a major release (breaking changes)
-npm version major
+pnpm version major
 ```
 
 ### 2. Build the package
 
-The `prepublishOnly` script in `package.json` will automatically run `npm run build` before publishing, but you can run it manually to verify:
+The `prepublishOnly` script in `package.json` will automatically run `pnpm build` before publishing, but you can run it manually to verify:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ### 3. Test the package locally (optional)
@@ -81,21 +81,21 @@ Before publishing, you can test the package locally:
 
 ```bash
 # Create a tarball
-npm pack
+pnpm pack
 
 # This creates a file like: affectiveslidervue-1.0.0.tgz
 # You can install it in another project to test:
-# npm install /path/to/affectiveslidervue-1.0.0.tgz
+# pnpm add /path/to/affectiveslidervue-1.0.0.tgz
 ```
 
 ### 4. Publish to npm
 
 ```bash
 # Publish to npm
-npm publish
+pnpm publish
 
 # For scoped packages or first-time publishing
-npm publish --access public
+pnpm publish --access public
 ```
 
 ### 5. Push to GitHub
@@ -131,7 +131,7 @@ The following files and directories are included in the npm package (defined in 
 Before publishing, you can check what files will be included:
 
 ```bash
-npm pack --dry-run
+pnpm pack --dry-run
 ```
 
 Or after creating a tarball:
@@ -139,13 +139,14 @@ Or after creating a tarball:
 ```bash
 tar -tzf affectiveslidervue-1.0.0.tgz
 ```
+```
 
 ## Unpublishing (Emergency Only)
 
 If you need to unpublish a version (within 72 hours):
 
 ```bash
-npm unpublish affectiveslidervue@1.0.0
+pnpm unpublish affectiveslidervue@1.0.0
 ```
 
 **Note**: Unpublishing is discouraged. It's better to publish a new patch version with fixes.
@@ -154,8 +155,8 @@ npm unpublish affectiveslidervue@1.0.0
 
 ### "You do not have permission to publish"
 
-- Make sure you're logged in: `npm whoami`
-- Check if the package name is available: `npm view affectiveslidervue`
+- Make sure you're logged in: `pnpm whoami`
+- Check if the package name is available: `pnpm view affectiveslidervue`
 - If the package exists and you're not the owner, you need to use a different name or get permission from the owner
 
 ### "Package name too similar to existing package"
@@ -170,11 +171,11 @@ npm may reject names too similar to existing packages. Choose a unique name or a
 
 ### Build fails before publishing
 
-The `prepublishOnly` script runs `npm run build` automatically. If it fails:
+The `prepublishOnly` script runs `pnpm build` automatically. If it fails:
 
 1. Check the error message
 2. Fix any issues in the code or build configuration
-3. Test the build manually: `npm run build`
+3. Test the build manually: `pnpm build`
 4. Try publishing again
 
 ## Automation (Optional)
@@ -193,13 +194,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish --access public
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```

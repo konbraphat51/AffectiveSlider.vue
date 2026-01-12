@@ -5,7 +5,7 @@
 ### 1. Install the package
 
 ```bash
-npm install affectiveslidervue
+pnpm add affectiveslidervue
 ```
 
 ### 2. Setup images
@@ -16,7 +16,7 @@ The images are included in the npm package. Copy them to your public directory.
 
 ```bash
 # Install cross-platform copy utility
-npm install --save-dev cpx2
+pnpm add -D cpx2
 ```
 
 Add to your `package.json`:
