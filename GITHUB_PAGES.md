@@ -52,7 +52,7 @@ Or
 3. **公開URLにアクセス / Access Published URL**
    - デプロイが成功したら、以下のURLでアクセスできます：
    - After successful deployment, access the site at:
-   - https://konbraphat51.github.io/AffectiveSliderVue/
+   - https://konbraphat51.github.io/AffectiveSlider.vue/
 
 ## 手動デプロイ / Manual Deployment
 
@@ -124,8 +124,8 @@ To manually build and publish the demo:
    ```
 
 2. **ベースパスを確認 / Check Base Path**
-   - `vite.config.demo.ts` の `base` 設定が `/AffectiveSliderVue/` になっているか確認
-   - Verify `base` setting in `vite.config.demo.ts` is `/AffectiveSliderVue/`
+   - `vite.config.demo.ts` の `base` 設定が `/AffectiveSlider.vue/` になっているか確認
+   - Verify `base` setting in `vite.config.demo.ts` is `/AffectiveSlider.vue/`
 
 3. **ブラウザのキャッシュをクリア / Clear Browser Cache**
    - Ctrl+Shift+R (Windows/Linux) または Cmd+Shift+R (Mac)
