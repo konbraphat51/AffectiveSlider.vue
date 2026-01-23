@@ -4,6 +4,7 @@ import { resolve } from 'path'
 import { copyFileSync, mkdirSync, readdirSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
+import type { Plugin } from 'vite'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -13,7 +14,7 @@ export default defineConfig({
     vue(),
     {
       name: 'copy-images',
-      closeBundle() {
+      closeBundle(): void {
         try {
           // Copy images to dist folder after build
           const imagesDir = resolve(__dirname, 'dist/images')
@@ -43,7 +44,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.js'),
+      entry: resolve(__dirname, 'src/index.ts'),
       name: 'AffectiveSliderVue',
       fileName: (format) => `affective-slider-vue.${format}.js`
     },
