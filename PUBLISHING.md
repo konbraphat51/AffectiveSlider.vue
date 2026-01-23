@@ -180,36 +180,103 @@ The `prepublishOnly` script runs `pnpm build` automatically. If it fails:
 
 ## Automation (Optional)
 
-For automated publishing with GitHub Actions, create `.github/workflows/publish.yml`:
+For automated publishing with GitHub Actions, create `.github/workflows/publish-npm.yml`:
 
 ```yaml
 name: Publish to npm
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      id-token: write
+    
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-      - run: pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.x'
+        registry-url: 'https://registry.npmjs.org'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run tests
+      run: npm run test:run
+    
+    - name: Build package
+      run: npm run build
+    
+    - name: Publish to npm
+      run: npm publish --provenance --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```
 
 Then add your npm token to GitHub repository secrets as `NPM_TOKEN`.
+
+### Using GitHub Actions for Publishing
+
+This repository includes a GitHub Actions workflow (`.github/workflows/publish-npm.yml`) that automatically publishes to npm when you push a tag.
+
+#### Setup Steps
+
+1. **Create an npm access token**
+   - Go to https://www.npmjs.com/settings/YOUR_USERNAME/tokens
+   - Click "Generate New Token" > "Granular Access Token"
+   - Set permissions:
+     - Expiration: Choose appropriate duration
+     - Packages and scopes: Select "Read and write" for the package
+   - Copy the generated token
+
+2. **Add token to GitHub secrets**
+   - Go to your repository Settings > Secrets and variables > Actions
+   - Click "New repository secret"
+   - Name: `NPM_TOKEN`
+   - Secret: Paste your npm token
+   - Click "Add secret"
+
+3. **Create and push a tag**
+   ```bash
+   # Update version in package.json
+   npm version patch  # or minor, or major
+   
+   # Push the tag
+   git push origin main --tags
+   ```
+
+4. **Monitor the workflow**
+   - Go to the "Actions" tab in your repository
+   - Watch the "Publish to npm" workflow run
+   - Once completed, your package will be published to npm
+
+#### Automatic Publishing Process
+
+When you push a tag matching `v*.*.*` (e.g., `v1.0.1`, `v2.0.0`):
+
+1. GitHub Actions automatically starts the workflow
+2. It installs dependencies
+3. Runs all tests
+4. Builds the package
+5. Publishes to npm with provenance
+
+#### Benefits of GitHub Actions Publishing
+
+- **Automated**: No manual publishing steps needed
+- **Consistent**: Always builds and tests before publishing
+- **Provenance**: Includes signed provenance attestations for supply chain security
+- **Safe**: npm token is securely stored in GitHub Secrets
+- **Traceable**: Full logs available in the Actions tab
 
 ## Support
 
