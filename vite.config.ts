@@ -31,13 +31,13 @@ export default defineConfig({
             try {
               copyFileSync(source, dest)
             } catch (err) {
-              console.warn(`Warning: Could not copy ${image}:`, err.message)
+              console.warn(`Warning: Could not copy ${image}:`, err instanceof Error ? err.message : String(err))
             }
           })
           
           console.log(`Copied ${images.length} images to dist/images/`)
         } catch (err) {
-          console.error('Error copying images:', err.message)
+          console.error('Error copying images:', err instanceof Error ? err.message : String(err))
         }
       }
     }
@@ -56,7 +56,7 @@ export default defineConfig({
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') return 'affectiveslidervue.css'
-          return assetInfo.name
+          return assetInfo.name || 'unknown-asset'
         }
       }
     }
