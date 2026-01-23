@@ -2,11 +2,11 @@
   <div id="demo-app">
     <h1>Affective Slider Vue Component</h1>
     <p class="description">
-      The Affective Slider (AS) is a digital scale for self-assessment of emotion 
-      composed of two slider controls that measure pleasure (sad - happy) and 
+      The Affective Slider (AS) is a digital scale for self-assessment of emotion
+      composed of two slider controls that measure pleasure (sad - happy) and
       arousal (sleepy - wide awake).
     </p>
-    
+
     <AffectiveSlider
       :pleasure-value="pleasure"
       :arousal-value="arousal"
@@ -14,24 +14,23 @@
       pleasure-right-label="Happy"
       arousal-left-label="Sleepy"
       arousal-right-label="Awake"
-      image-path="/images/"
       @update:pleasureValue="pleasure = $event"
       @update:arousalValue="arousal = $event"
       @change="handleChange"
       @interacted="handleInteraction"
     />
-    
+
     <div class="values-display">
       <h3>Current Values:</h3>
       <div class="value-item">
-        <span class="value-label">Pleasure:</span> 
+        <span class="value-label">Pleasure:</span>
         <span class="value-number">{{ pleasure.toFixed(2) }}</span>
       </div>
       <div class="value-item">
-        <span class="value-label">Arousal:</span> 
+        <span class="value-label">Arousal:</span>
         <span class="value-number">{{ arousal.toFixed(2) }}</span>
       </div>
-      
+
       <div v-if="lastInteraction" class="interacted-status">
         <strong>Last interaction:</strong> {{ lastInteraction }}
       </div>
@@ -39,30 +38,21 @@
   </div>
 </template>
 
-<script>
-import AffectiveSlider from './components/AffectiveSlider.vue'
+<script setup>
+import { ref } from 'vue'
+import AffectiveSlider from '@konbraphat51/affectiveslidervue'
 
-export default {
-  name: 'DemoApp',
-  components: {
-    AffectiveSlider
-  },
-  data() {
-    return {
-      pleasure: 0.5,
-      arousal: 0.5,
-      lastInteraction: null
-    }
-  },
-  methods: {
-    handleChange(values) {
-      console.log('Values changed:', values)
-    },
-    handleInteraction(data) {
-      this.lastInteraction = `User interacted with ${data.type} slider`
-      console.log('Interaction:', data)
-    }
-  }
+const pleasure = ref(0.5)
+const arousal = ref(0.5)
+const lastInteraction = ref(null)
+
+const handleChange = (values) => {
+  console.log('Values changed:', values)
+}
+
+const handleInteraction = (data) => {
+  lastInteraction.value = `User interacted with ${data.type} slider`
+  console.log('Interaction:', data)
 }
 </script>
 
