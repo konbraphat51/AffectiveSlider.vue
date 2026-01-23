@@ -23,6 +23,7 @@
     "build:demo": "vue-tsc && vite build --config vite.config.demo.ts",
     "build:docs": "vue-tsc && vite build --config vite.config.demo.ts",
     "preview": "vite preview",
+    "serve:docs": "pnpm dlx http-server docs -c-1 -p 5173",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
