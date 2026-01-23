@@ -21,6 +21,7 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "build:demo": "vue-tsc && vite build --config vite.config.demo.ts",
+    "build:docs": "vue-tsc && vite build --config vite.config.demo.ts",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",

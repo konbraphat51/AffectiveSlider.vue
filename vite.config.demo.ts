@@ -9,9 +9,9 @@ const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/',
+  base: './',
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true,
     rollupOptions: {
       input: {

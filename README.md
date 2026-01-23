@@ -221,7 +221,7 @@ pnpm dev
 pnpm build
 
 # Build demo for GitHub Pages
-pnpm build:demo
+pnpm run build:docs
 ```
 
 ### GitHub Pages Demo
@@ -232,8 +232,17 @@ The `/docs` folder contains a built version of the demo application for GitHub P
 
 To rebuild the demo:
 ```bash
-pnpm build:demo
+pnpm run build:docs
 ```
+
+To publish on GitHub Pages:
+
+1. Push the repository to GitHub.
+2. Go to the repository Settings → Pages.
+3. Under "Build and deployment" choose "Branch: main" and folder `/docs`.
+4. Save — the site will be published from the `docs/` folder.
+
+Note: The demo build uses a relative base (`base: './'`) so assets work correctly when served from `/docs`.
 
 ## Publishing
 
