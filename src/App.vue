@@ -14,6 +14,7 @@
       pleasure-right-label="Happy"
       arousal-left-label="Sleepy"
       arousal-right-label="Awake"
+      image-path="/AffectiveSlider.vue/images/"
       @update:pleasureValue="pleasure = $event"
       @update:arousalValue="arousal = $event"
       @change="handleChange"
