@@ -1,25 +1,25 @@
 <template>
   <div class="affective-slider">
-    <div 
-      v-for="slider in orderedSliders" 
+    <div
+      v-for="slider in orderedSliders"
       :key="slider.type"
       :class="['as-container', slider.type]"
     >
       <div class="as-icon-wrapper as-icon-left">
-        <img 
-          :src="slider.leftImage" 
-          :alt="`${slider.type} left`" 
+        <img
+          :src="slider.leftImage"
+          :alt="`${slider.type} left`"
           class="as-icon"
         />
         <div v-if="slider.leftLabel" class="as-icon-label">{{ slider.leftLabel }}</div>
       </div>
-      <input 
-        type="range" 
+      <input
+        type="range"
         :name="`AS-${slider.type}`"
         :id="`AS-${slider.type}`"
         :value="slider.value"
-        min="0" 
-        max="1" 
+        min="0"
+        max="1"
         step="0.01"
         @input="handleInput(slider.type, $event)"
         @mousedown="handleInteraction(slider.type)"
@@ -27,9 +27,9 @@
         class="as-slider"
       />
       <div class="as-icon-wrapper as-icon-right">
-        <img 
-          :src="slider.rightImage" 
-          :alt="`${slider.type} right`" 
+        <img
+          :src="slider.rightImage"
+          :alt="`${slider.type} right`"
           class="as-icon"
         />
         <div v-if="slider.rightLabel" class="as-icon-label">{{ slider.rightLabel }}</div>
@@ -41,131 +41,129 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'AffectiveSlider',
-  props: {
-    // Initial value for pleasure slider (0-1)
-    pleasureValue: {
-      type: Number,
-      default: 0.5,
-      validator: (value) => value >= 0 && value <= 1
-    },
-    // Initial value for arousal slider (0-1)
-    arousalValue: {
-      type: Number,
-      default: 0.5,
-      validator: (value) => value >= 0 && value <= 1
-    },
-    // Randomize the order of sliders
-    randomizeOrder: {
-      type: Boolean,
-      default: true
-    },
-    // Base path for images
-    imagePath: {
-      type: String,
-      default: '/images/'
-    },
-    // Label below left icon for pleasure slider (unhappy face)
-    pleasureLeftLabel: {
-      type: String,
-      default: ''
-    },
-    // Label below right icon for pleasure slider (happy face)
-    pleasureRightLabel: {
-      type: String,
-      default: ''
-    },
-    // Label below left icon for arousal slider (sleepy face)
-    arousalLeftLabel: {
-      type: String,
-      default: ''
-    },
-    // Label below right icon for arousal slider (wide awake face)
-    arousalRightLabel: {
-      type: String,
-      default: ''
-    }
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue'
+import unhappyImage from '../assets/images/AS_unhappy.png'
+import sleepyImage from '../assets/images/AS_sleepy.png'
+import happyImage from '../assets/images/AS_happy.png'
+import wideawakeImage from '../assets/images/AS_wideawake.png'
+import intensityCueImage from '../assets/images/AS_intensity_cue.png'
+
+const props = defineProps({
+  // Initial value for pleasure slider (0-1)
+  pleasureValue: {
+    type: Number,
+    default: 0.5,
+    validator: (value) => value >= 0 && value <= 1
   },
-  data() {
-    return {
-      pleasure: this.pleasureValue,
-      arousal: this.arousalValue,
-      sliderOrder: [],
-      interacted: {
-        pleasure: false,
-        arousal: false
-      }
-    }
+  // Initial value for arousal slider (0-1)
+  arousalValue: {
+    type: Number,
+    default: 0.5,
+    validator: (value) => value >= 0 && value <= 1
   },
-  computed: {
-    orderedSliders() {
-      return this.sliderOrder.map(type => ({
-        type,
-        value: this[type],
-        leftImage: this.getLeftImage(type),
-        rightImage: this.getRightImage(type),
-        leftLabel: this.getLeftLabel(type),
-        rightLabel: this.getRightLabel(type)
-      }))
-    },
-    intensityCueImage() {
-      return `${this.imagePath}AS_intensity_cue.png`
-    }
+  // Randomize the order of sliders
+  randomizeOrder: {
+    type: Boolean,
+    default: true
   },
-  methods: {
-    handleInput(type, event) {
-      const value = parseFloat(event.target.value)
-      this[type] = value
-      this.$emit(`update:${type}Value`, value)
-      this.$emit('change', { pleasure: this.pleasure, arousal: this.arousal })
-    },
-    handleInteraction(type) {
-      if (!this.interacted[type]) {
-        this.interacted[type] = true
-        this.$emit('interacted', { type, pleasure: this.pleasure, arousal: this.arousal })
-      }
-    },
-    getLeftImage(type) {
-      return type === 'pleasure' 
-        ? `${this.imagePath}AS_unhappy.png`
-        : `${this.imagePath}AS_sleepy.png`
-    },
-    getRightImage(type) {
-      return type === 'pleasure'
-        ? `${this.imagePath}AS_happy.png`
-        : `${this.imagePath}AS_wideawake.png`
-    },
-    getLeftLabel(type) {
-      return type === 'pleasure' ? this.pleasureLeftLabel : this.arousalLeftLabel
-    },
-    getRightLabel(type) {
-      return type === 'pleasure' ? this.pleasureRightLabel : this.arousalRightLabel
-    },
-    initializeSliderOrder() {
-      const sliders = ['arousal', 'pleasure']
-      if (this.randomizeOrder) {
-        // Randomly choose order: 50% chance for each arrangement
-        this.sliderOrder = Math.random() > 0.5 ? [...sliders] : [...sliders].reverse()
-      } else {
-        // Fixed order: pleasure first, arousal second
-        this.sliderOrder = ['pleasure', 'arousal']
-      }
-    }
+  // Label below left icon for pleasure slider (unhappy face)
+  pleasureLeftLabel: {
+    type: String,
+    default: ''
   },
-  mounted() {
-    this.initializeSliderOrder()
+  // Label below right icon for pleasure slider (happy face)
+  pleasureRightLabel: {
+    type: String,
+    default: ''
   },
-  watch: {
-    pleasureValue(newVal) {
-      this.pleasure = newVal
-    },
-    arousalValue(newVal) {
-      this.arousal = newVal
-    }
+  // Label below left icon for arousal slider (sleepy face)
+  arousalLeftLabel: {
+    type: String,
+    default: ''
+  },
+  // Label below right icon for arousal slider (wide awake face)
+  arousalRightLabel: {
+    type: String,
+    default: ''
+  }
+})
+
+const emit = defineEmits(['update:pleasureValue', 'update:arousalValue', 'change', 'interacted'])
+
+const pleasure = ref(props.pleasureValue)
+const arousal = ref(props.arousalValue)
+const sliderOrder = ref([])
+const interacted = ref({
+  pleasure: false,
+  arousal: false
+})
+
+const getLeftImage = (type) => {
+  return type === 'pleasure' ? unhappyImage : sleepyImage
+}
+
+const getRightImage = (type) => {
+  return type === 'pleasure' ? happyImage : wideawakeImage
+}
+
+const getLeftLabel = (type) => {
+  return type === 'pleasure' ? props.pleasureLeftLabel : props.arousalLeftLabel
+}
+
+const getRightLabel = (type) => {
+  return type === 'pleasure' ? props.pleasureRightLabel : props.arousalRightLabel
+}
+
+const orderedSliders = computed(() => {
+  return sliderOrder.value.map(type => ({
+    type,
+    value: type === 'pleasure' ? pleasure.value : arousal.value,
+    leftImage: getLeftImage(type),
+    rightImage: getRightImage(type),
+    leftLabel: getLeftLabel(type),
+    rightLabel: getRightLabel(type)
+  }))
+})
+
+const handleInput = (type, event) => {
+  const value = parseFloat(event.target.value)
+  if (type === 'pleasure') {
+    pleasure.value = value
+  } else {
+    arousal.value = value
+  }
+  emit(`update:${type}Value`, value)
+  emit('change', { pleasure: pleasure.value, arousal: arousal.value })
+}
+
+const handleInteraction = (type) => {
+  if (!interacted.value[type]) {
+    interacted.value[type] = true
+    emit('interacted', { type, pleasure: pleasure.value, arousal: arousal.value })
   }
 }
+
+const initializeSliderOrder = () => {
+  const sliders = ['arousal', 'pleasure']
+  if (props.randomizeOrder) {
+    sliderOrder.value = Math.random() > 0.5 ? [...sliders] : [...sliders].reverse()
+  } else {
+    sliderOrder.value = ['pleasure', 'arousal']
+  }
+}
+
+onMounted(() => {
+  initializeSliderOrder()
+})
+
+watch(() => props.pleasureValue, (newVal) => {
+  pleasure.value = newVal
+})
+
+watch(() => props.arousalValue, (newVal) => {
+  arousal.value = newVal
+})
 </script>
 
 <style scoped>

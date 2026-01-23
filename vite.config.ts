@@ -1,46 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import { copyFileSync, mkdirSync, readdirSync } from 'fs'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import type { Plugin } from 'vite'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [
-    vue(),
-    {
-      name: 'copy-images',
-      closeBundle(): void {
-        try {
-          // Copy images to dist folder after build
-          const imagesDir = resolve(__dirname, 'dist/images')
-          const sourceDir = resolve(__dirname, 'public/images')
-          
-          mkdirSync(imagesDir, { recursive: true })
-          
-          // Read all PNG files from source directory
-          const images = readdirSync(sourceDir).filter(file => file.endsWith('.png'))
-          
-          images.forEach(image => {
-            const source = join(sourceDir, image)
-            const dest = join(imagesDir, image)
-            try {
-              copyFileSync(source, dest)
-            } catch (err) {
-              console.warn(`Warning: Could not copy ${image}:`, err instanceof Error ? err.message : String(err))
-            }
-          })
-          
-          console.log(`Copied ${images.length} images to dist/images/`)
-        } catch (err) {
-          console.error('Error copying images:', err instanceof Error ? err.message : String(err))
-        }
-      }
-    }
+    vue()
   ],
   build: {
     lib: {

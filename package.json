@@ -1,6 +1,6 @@
 {
-  "name": "affectiveslidervue",
-  "version": "1.0.0",
+  "name": "@konbraphat51/affectiveslidervue",
+  "version": "0.0.1",
   "type": "module",
   "main": "./dist/affective-slider-vue.umd.js",
   "module": "./dist/affective-slider-vue.es.js",
