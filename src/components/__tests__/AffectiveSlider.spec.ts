@@ -150,7 +150,7 @@ describe('AffectiveSlider', () => {
       
       await pleasureSlider.setValue(0.8)
       expect(wrapper.emitted('update:pleasureValue')).toBeTruthy()
-      expect(wrapper.emitted('update:pleasureValue')[0]).toEqual([0.8])
+      expect(wrapper.emitted('update:pleasureValue')![0]).toEqual([0.8])
     })
 
     it('should emit update:arousalValue event', async () => {
@@ -160,7 +160,7 @@ describe('AffectiveSlider', () => {
       
       await arousalSlider.setValue(0.3)
       expect(wrapper.emitted('update:arousalValue')).toBeTruthy()
-      expect(wrapper.emitted('update:arousalValue')[0]).toEqual([0.3])
+      expect(wrapper.emitted('update:arousalValue')![0]).toEqual([0.3])
     })
 
     it('should emit change event with both values', async () => {
@@ -170,7 +170,7 @@ describe('AffectiveSlider', () => {
       
       await pleasureSlider.setValue(0.7)
       expect(wrapper.emitted('change')).toBeTruthy()
-      expect(wrapper.emitted('change')[0]).toEqual([{ pleasure: 0.7, arousal: 0.5 }])
+      expect(wrapper.emitted('change')![0]).toEqual([{ pleasure: 0.7, arousal: 0.5 }])
     })
   })
 
@@ -182,7 +182,7 @@ describe('AffectiveSlider', () => {
       
       await pleasureSlider.trigger('mousedown')
       expect(wrapper.emitted('interacted')).toBeTruthy()
-      expect(wrapper.emitted('interacted')[0]).toEqual([{
+      expect(wrapper.emitted('interacted')![0]).toEqual([{
         type: 'pleasure',
         pleasure: 0.5,
         arousal: 0.5
@@ -196,7 +196,7 @@ describe('AffectiveSlider', () => {
       
       await arousalSlider.trigger('touchstart')
       expect(wrapper.emitted('interacted')).toBeTruthy()
-      expect(wrapper.emitted('interacted')[0]).toEqual([{
+      expect(wrapper.emitted('interacted')![0]).toEqual([{
         type: 'arousal',
         pleasure: 0.5,
         arousal: 0.5
