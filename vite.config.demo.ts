@@ -9,9 +9,9 @@ const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/AffectiveSliderVue/',
+  base: '/',
   build: {
-    outDir: 'docs',
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {

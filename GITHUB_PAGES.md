@@ -52,7 +52,7 @@ Or
 3. **公開URLにアクセス / Access Published URL**
    - デプロイが成功したら、以下のURLでアクセスできます：
    - After successful deployment, access the site at:
-   - https://konbraphat51.github.io/AffectiveSliderVue/
+   - https://konbraphat51.github.io/AffectiveSlider.vue/
 
 ## 手動デプロイ / Manual Deployment
 
@@ -74,23 +74,21 @@ To manually build and publish the demo:
 
 3. **変更をコミット / Commit Changes**
    ```bash
-   git add docs/
+   git add dist/
    git commit -m "Update demo"
    git push
    ```
 
 4. **GitHub Pages 設定（初回のみ）/ GitHub Pages Setup (First Time Only)**
    - Settings > Pages
-   - Source: "Deploy from a branch"
-   - Branch: `main`
-   - Folder: `/docs`
+   - Source: "GitHub Actions"
    - Save
 
 ### ビルド内容 / Build Contents
 
-`npm run build:demo` は以下のファイルを `docs/` フォルダに生成します：
+`npm run build:demo` は以下のファイルを `dist/` フォルダに生成します：
 
-`npm run build:demo` generates the following files in the `docs/` folder:
+`npm run build:demo` generates the following files in the `dist/` folder:
 
 - `index.html` - メインHTMLファイル / Main HTML file
 - `assets/` - バンドルされたJavaScriptとCSSファイル / Bundled JavaScript and CSS files
@@ -124,8 +122,8 @@ To manually build and publish the demo:
    ```
 
 2. **ベースパスを確認 / Check Base Path**
-   - `vite.config.demo.ts` の `base` 設定が `/AffectiveSliderVue/` になっているか確認
-   - Verify `base` setting in `vite.config.demo.ts` is `/AffectiveSliderVue/`
+   - `vite.config.demo.ts` の `base` 設定が `/` になっているか確認
+   - Verify `base` setting in `vite.config.demo.ts` is `/`
 
 3. **ブラウザのキャッシュをクリア / Clear Browser Cache**
    - Ctrl+Shift+R (Windows/Linux) または Cmd+Shift+R (Mac)

@@ -39,12 +39,12 @@
   "description": "A Vue component implementation of the Affective Slider for measuring pleasure and arousal",
   "repository": {
     "type": "git",
-    "url": "https://github.com/konbraphat51/AffectiveSliderVue.git"
+    "url": "https://github.com/konbraphat51/AffectiveSlider.vue.git"
   },
   "bugs": {
-    "url": "https://github.com/konbraphat51/AffectiveSliderVue/issues"
+    "url": "https://github.com/konbraphat51/AffectiveSlider.vue/issues"
   },
-  "homepage": "https://github.com/konbraphat51/AffectiveSliderVue#readme",
+  "homepage": "https://github.com/konbraphat51/AffectiveSlider.vue#readme",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
