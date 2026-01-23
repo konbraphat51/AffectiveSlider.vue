@@ -221,10 +221,11 @@ pnpm dev
 pnpm build
 
 # Build demo for GitHub Pages
-pnpm run build:docs
+pnpm run build:demo
 ```
 
 ### GitHub Pages Demo
+
 
 The `/docs` folder contains a built version of the demo application for GitHub Pages deployment.
 
@@ -232,7 +233,7 @@ The `/docs` folder contains a built version of the demo application for GitHub P
 
 To rebuild the demo:
 ```bash
-pnpm run build:docs
+pnpm run build:demo
 ```
 
 To publish on GitHub Pages:
