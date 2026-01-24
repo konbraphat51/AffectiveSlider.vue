@@ -23,6 +23,7 @@ export default defineConfig({
           return assetInfo.name || 'unknown-asset'
         }
       }
-    }
+    },
+    cssCodeSplit: false
   }
 })
