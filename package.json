@@ -1,6 +1,6 @@
 {
   "name": "@konbraphat51/affectiveslidervue",
-  "version": "0.0.4",
+  "version": "0.0.1",
   "type": "module",
   "main": "./dist/affective-slider-vue.umd.js",
   "module": "./dist/affective-slider-vue.es.js",
@@ -42,9 +42,6 @@
     "url": "https://github.com/konbraphat51/AffectiveSlider.vue/issues"
   },
   "homepage": "https://github.com/konbraphat51/AffectiveSlider.vue#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
