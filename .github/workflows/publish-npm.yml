@@ -1,8 +1,8 @@
 name: Publish to GitHub Packages
 
 on:
-  push:
-    branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -28,7 +28,10 @@ jobs:
         version: 10
     
     - name: Install dependencies
-      run: pnpm install
+      run: pnpm install --frozen-lockfile
+
+    - name: Run tests
+      run: pnpm run test:run
         
     - name: Build package
       run: pnpm run build
@@ -37,3 +40,11 @@ jobs:
       run: pnpm publish --no-git-checks
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Trigger demo update
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ secrets.DEMO_REPO_PAT }}
+        repository: konbraphat51/AffectiveSliderVueDemo
+        event-type: update-package
+        client-payload: '{"version": "${{ github.event.release.tag_name }}"}'

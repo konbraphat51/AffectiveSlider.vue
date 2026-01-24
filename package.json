@@ -18,11 +18,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "dev": "vite",
     "build": "vue-tsc && vite build",
-    "build:demo": "vue-tsc && vite build --config vite.config.demo.ts",
-    "build:docs": "pnpm run build:demo",
-    "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -46,6 +42,9 @@
     "url": "https://github.com/konbraphat51/AffectiveSlider.vue/issues"
   },
   "homepage": "https://github.com/konbraphat51/AffectiveSlider.vue#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
