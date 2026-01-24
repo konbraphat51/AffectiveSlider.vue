@@ -1,5 +1,8 @@
 # Affective Slider Vue
 
+<img width="823" height="565" alt="image" src="https://github.com/user-attachments/assets/4a963546-c27e-4c4e-9e12-4a71574843be" />
+
+
 A Vue 3 component implementation of the Affective Slider (AS) for measuring pleasure and arousal in emotion assessment.
 
 **[Live Demo](https://konbraphat51.github.io/AffectiveSliderVueDemo/)** | [npm Package](https://www.npmjs.com/package/@konbraphat51/affectiveslidervue)
