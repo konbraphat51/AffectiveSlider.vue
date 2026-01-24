@@ -41,6 +41,12 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  trigger-demo-update:
+    needs: publish
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+
+    steps:
     - name: Trigger demo update
       uses: peter-evans/repository-dispatch@v3
       with:
