@@ -166,7 +166,7 @@ watch(() => props.arousalValue, (newVal) => {
 })
 </script>
 
-<style scoped>
+<style>
 .affective-slider {
   width: 100%;
   max-width: 800px;
