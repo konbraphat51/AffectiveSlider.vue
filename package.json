@@ -9,6 +9,7 @@
       "import": "./dist/affective-slider-vue.es.js",
       "require": "./dist/affective-slider-vue.umd.js"
     },
+    "./dist/affectiveslidervue.css": "./dist/affectiveslidervue.css",
     "./dist/images/*": "./dist/images/*"
   },
   "files": [
