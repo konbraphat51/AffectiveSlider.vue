@@ -33,20 +33,7 @@ The AS has been empirically validated and presented in the following open access
 pnpm add affectiveslidervue
 ```
 
-**Important:** You also need to import the CSS file in your application:
-
-```javascript
-// In your main.js or main.ts
-import '@konbraphat51/affectiveslidervue/dist/style.css'
-```
-
-Or if using in a single component:
-
-```vue
-<style>
-@import '@konbraphat51/affectiveslidervue/dist/style.css';
-</style>
-```
+The CSS is automatically injected when you import the component, so no additional setup is needed!
 
 ## Usage
 

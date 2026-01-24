@@ -1,15 +1,17 @@
 {
   "name": "@konbraphat51/affectiveslidervue",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "main": "./dist/affective-slider-vue.umd.js",
   "module": "./dist/affective-slider-vue.es.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/affective-slider-vue.es.js",
       "require": "./dist/affective-slider-vue.umd.js"
     },
     "./dist/style.css": "./dist/affectiveslidervue.css",
+    "./style.css": "./dist/affectiveslidervue.css",
     "./dist/images/*": "./dist/images/*"
   },
   "files": [
