@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { mount, flushPromises } from '@vue/test-utils'
+import { mount, flushPromises, VueWrapper, DOMWrapper } from '@vue/test-utils'
 import AffectiveSlider from '../AffectiveSlider.vue'
 import unhappyImage from '../../assets/images/AS_unhappy.png'
 import sleepyImage from '../../assets/images/AS_sleepy.png'
@@ -8,7 +8,7 @@ import wideawakeImage from '../../assets/images/AS_wideawake.png'
 import intensityCueImage from '../../assets/images/AS_intensity_cue.png'
 
 describe('AffectiveSlider', () => {
-  let wrapper
+  let wrapper: VueWrapper
 
   beforeEach(() => {
     // Reset Math.random mock before each test
@@ -62,7 +62,7 @@ describe('AffectiveSlider', () => {
       await flushPromises()
       // Note: we can't directly test ref value, so we test the rendered output
       const pleasureSlider = wrapper.find('input[name="AS-pleasure"]')
-      expect(pleasureSlider.element.value).toBe('0.7')
+      expect((pleasureSlider.element as HTMLInputElement).value).toBe('0.7')
     })
 
     it('should accept arousalValue prop', async () => {
@@ -72,14 +72,14 @@ describe('AffectiveSlider', () => {
       })
       await flushPromises()
       const arousalSlider = wrapper.find('input[name="AS-arousal"]')
-      expect(arousalSlider.element.value).toBe('0.3')
+      expect((arousalSlider.element as HTMLInputElement).value).toBe('0.3')
     })
 
     it('should have default values of 0.5 for both sliders', () => {
       const pleasureSlider = wrapper.find('input[name="AS-pleasure"]')
       const arousalSlider = wrapper.find('input[name="AS-arousal"]')
-      expect(pleasureSlider.element.value).toBe('0.5')
-      expect(arousalSlider.element.value).toBe('0.5')
+      expect((pleasureSlider.element as HTMLInputElement).value).toBe('0.5')
+      expect((arousalSlider.element as HTMLInputElement).value).toBe('0.5')
     })
 
     it('should render pleasure labels when provided', async () => {
@@ -89,7 +89,7 @@ describe('AffectiveSlider', () => {
       })
       await flushPromises()
       const labels = wrapper.findAll('.as-icon-label')
-      const labelTexts = labels.map(l => l.text())
+      const labelTexts = labels.map((l: DOMWrapper<Element>) => l.text())
       expect(labelTexts).toContain('Sad')
       expect(labelTexts).toContain('Happy')
     })
@@ -101,7 +101,7 @@ describe('AffectiveSlider', () => {
       })
       await flushPromises()
       const labels = wrapper.findAll('.as-icon-label')
-      const labelTexts = labels.map(l => l.text())
+      const labelTexts = labels.map((l: DOMWrapper<Element>) => l.text())
       expect(labelTexts).toContain('Sleepy')
       expect(labelTexts).toContain('Awake')
     })
@@ -186,13 +186,13 @@ describe('AffectiveSlider', () => {
       wrapper.unmount()
       const wrapper1 = mount(AffectiveSlider, { props: { randomizeOrder: true } })
       await flushPromises()
-      const order1 = wrapper1.findAll('.as-container').map(w => w.classes().find(c => c !== 'as-container'))
+      const order1 = wrapper1.findAll('.as-container').map((w: DOMWrapper<Element>) => w.classes().find(c => c !== 'as-container'))
 
       mockRandom.mockReturnValue(0.7) // arousal, pleasure
       wrapper1.unmount()
       const wrapper2 = mount(AffectiveSlider, { props: { randomizeOrder: true } })
       await flushPromises()
-      const order2 = wrapper2.findAll('.as-container').map(w => w.classes().find(c => c !== 'as-container'))
+      const order2 = wrapper2.findAll('.as-container').map((w: DOMWrapper<Element>) => w.classes().find(c => c !== 'as-container'))
       
       expect(order1).not.toEqual(order2)
     })
@@ -229,13 +229,13 @@ describe('AffectiveSlider', () => {
     it('should update internal pleasure value when prop changes', async () => {
       await wrapper.setProps({ pleasureValue: 0.9 })
       const pleasureSlider = wrapper.find('input[name="AS-pleasure"]')
-      expect(pleasureSlider.element.value).toBe('0.9')
+      expect((pleasureSlider.element as HTMLInputElement).value).toBe('0.9')
     })
 
     it('should update internal arousal value when prop changes', async () => {
       await wrapper.setProps({ arousalValue: 0.2 })
       const arousalSlider = wrapper.find('input[name="AS-arousal"]')
-      expect(arousalSlider.element.value).toBe('0.2')
+      expect((arousalSlider.element as HTMLInputElement).value).toBe('0.2')
     })
   })
 
@@ -244,7 +244,7 @@ describe('AffectiveSlider', () => {
       await flushPromises()
       const sliders = wrapper.findAll('.as-slider')
       
-      sliders.forEach(slider => {
+      sliders.forEach((slider: DOMWrapper<Element>) => {
         expect(slider.attributes('min')).toBe('0')
         expect(slider.attributes('max')).toBe('1')
         expect(slider.attributes('step')).toBe('0.01')
@@ -255,7 +255,7 @@ describe('AffectiveSlider', () => {
       await flushPromises()
       const sliders = wrapper.findAll('.as-slider')
       
-      sliders.forEach(slider => {
+      sliders.forEach((slider: DOMWrapper<Element>) => {
         expect(slider.attributes('type')).toBe('range')
       })
     })
