@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: Publish
 
 on:
   release:
@@ -16,19 +16,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version-file: 'package.json'
-        registry-url: 'https://npm.pkg.github.com/'
-
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
       with:
         version: 10
     
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: pnpm i --frozen-lockfile
 
     - name: Run tests
       run: pnpm run test:run
@@ -36,10 +30,8 @@ jobs:
     - name: Build package
       run: pnpm run build
     
-    - name: Publish to GitHub Packages
-      run: pnpm publish --no-git-checks
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to npm
+      run: pnpm publish --access public
 
   trigger-demo-update:
     needs: publish
